@@ -1,5 +1,5 @@
 const checker = (req,res,next)=>{
-    const token = "xyzfff";
+    const token = "xyz";
     const authCheck = token === "xyz";
     if(authCheck){
         next();

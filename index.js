@@ -7,8 +7,12 @@ app.use(express.json()) //parses json body
 
 //checking if the admin is logged in or not
 app.get("/admin",checker,(req,res)=>{
-    console.log("Welcome Admin....");
-    res.send("Admin was loggined!!!");
+    try{
+        throw new Error("Admin failed!");
+    }
+    catch(err){
+        next(err);
+    }
 });
 
 
@@ -17,6 +21,11 @@ app.get("/user",checker,(req,res)=>{
     res.send("Üser was loggined!!!");
 
 });
+
+app.use((err,req,res,next) =>{
+     console.error(err.stack); // For debugging
+    if(err) res.status(500).send("Error message displayed...")
+})
 
 app.listen(PORT = 3000,() =>{
     console.log(`Listiening to port ${PORT}`);
