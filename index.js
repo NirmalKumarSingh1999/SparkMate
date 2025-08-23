@@ -1,7 +1,28 @@
 const express = require("express");
 const connectDB = require("./config/database");
+const { model } = require("mongoose");
 const app = express();
+const User = require("./models/user");
 
+
+app.post("/signup",async(req,res)=>{
+    // creating a new instance of user model
+    try{
+        const userName = new User({
+        firstName: "baba",
+        lastName :"Singh",
+        age: 46,
+        email : "nirmal@baba.com",
+        gender: "male",
+    })
+   await userName.save();
+   res.send("Data saved in the Database...")
+    }
+    catch(err){
+        res.status(400).send("database error occuured which putting data...")
+    }
+   
+})
 connectDB()
 .then(()=>{
     console.log("MongoDB database was connected...")
