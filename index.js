@@ -4,19 +4,16 @@ const { model } = require("mongoose");
 const app = express();
 const User = require("./models/user");
 
+// it converts json to js object
+app.use(express.json());
 
 app.post("/signup",async(req,res)=>{
     // creating a new instance of user model
     try{
-        const userName = new User({
-        firstName: "baba",
-        lastName :"Singh",
-        age: 46,
-        email : "nirmal@baba.com",
-        gender: "male",
-    })
-   await userName.save();
-   res.send("Data saved in the Database...")
+        const userName = new User(req.body);
+        console.log(req.body);
+        await userName.save();
+        res.send("Data saved in the Database...")
     }
     catch(err){
         res.status(400).send("database error occuured which putting data...")
